@@ -22,7 +22,6 @@ export default function App() {
       setStatus("success");
       const data = await getPosts();
       setPosts(data);
-      console.log({ data });
     };
     if (status !== "success") {
       fetchData();
@@ -30,17 +29,39 @@ export default function App() {
   }, [posts, status]);
   return (
     <div className="App">
-      <h1>HackerNews</h1>
-      <h2>Top 10 Current Posts</h2>
+      <h1 className="glitch">HackerNews</h1>
+      <h2>Top Stories</h2>
       <ul className="posts">
         {status !== "success"
           ? status
           : posts?.length > 0
-          ? posts.map((post) => (
-              <li className="post" key={`post-${post.id}`}>
-                {post.title.trim()}
-              </li>
-            ))
+          ? posts
+              .sort((a, b) => (a.score <= b.score ? 1 : -1))
+              .map((post) => (
+                <li className="post" key={`post-${post.id}`}>
+                  <h3>{post.title.trim()}</h3>
+                  {post?.url && (
+                    <a
+                      href={post.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {post.url}
+                    </a>
+                  )}
+                  <div>{post?.score}</div>
+                  {post?.kids && (
+                    <details className="comments">
+                      <summary>Comments</summary>
+                      <ul>
+                        {post.kids.map((kid) => (
+                          <li>{kid}</li>
+                        ))}
+                      </ul>
+                    </details>
+                  )}
+                </li>
+              ))
           : "No Posts loaded"}
       </ul>
     </div>
