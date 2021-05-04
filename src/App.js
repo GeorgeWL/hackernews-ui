@@ -4,12 +4,10 @@ const BASE_API_URL = "https://hacker-news.firebaseio.com/v0";
 async function getPosts() {
   const url = BASE_API_URL + "/topstories.json";
   const topStoryIDs = (await (await fetch(url)).json()).slice(0, 10);
-  const topStoriesWithDetails = [];
-  topStoryIDs.forEach(async (storyID) => {
-    const data = await getPostById(storyID);
-    topStoriesWithDetails.push(data);
-  });
-  return topStoriesWithDetails;
+  const topStoriesWithDetailsPromises = topStoryIDs.map((storyID) =>
+    getPostById(storyID)
+  );
+  return Promise.all(topStoriesWithDetailsPromises);
 }
 async function getPostById(postID) {
   const url = `${BASE_API_URL}/item/${postID}.json`;
@@ -24,9 +22,12 @@ export default function App() {
       setStatus("success");
       const data = await getPosts();
       setPosts(data);
+      console.log({ data });
     };
-    fetchData();
-  }, []);
+    if (status !== "success") {
+      fetchData();
+    }
+  }, [posts, status]);
   return (
     <div className="App">
       <h1>HackerNews</h1>
@@ -35,7 +36,11 @@ export default function App() {
         {status !== "success"
           ? status
           : posts?.length > 0
-          ? posts.map((post) => <li key={`post-${post.id}`}>{post}</li>)
+          ? posts.map((post) => (
+              <li className="post" key={`post-${post.id}`}>
+                {post.title.trim()}
+              </li>
+            ))
           : "No Posts loaded"}
       </ul>
     </div>
