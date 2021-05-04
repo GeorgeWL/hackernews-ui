@@ -16,24 +16,19 @@ async function getPostById(postID) {
   const data = await (await fetch(url)).json();
   return data;
 }
-const fetchItems = async () => await getPosts();
 export default function App() {
   const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
-
+  const [status, setStatus] = useState('loading');
   setTimeout(async () => {
-    setLoading(false);
-    // temp mock before switch to using proper
-    const items = fetchItems();
-    setPosts(items);
+    setStatus('success');
   }, 4000);
   return (
     <div className="App">
       <h1>HackerNews</h1>
       <h2>Top 10 Current Posts</h2>
       <ul className="posts">
-        {loading
-          ? "Loading"
+        {status=='success'
+          ? status
           : posts?.length > 0
           ? posts.map((post) => <li key={`post-${post.id}`}>{post}</li>)
           : "No Posts loaded"}
