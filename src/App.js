@@ -1,13 +1,24 @@
 import "./styles.scss";
-import Comment from "./components/comment";
 import useFetchItems from "./hooks/useFetch";
+import Comments from "./components/comments";
 
 export default function App() {
   const [data, status] = useFetchItems("topstories");
   const posts = data.sort((a, b) => (a.score <= b.score ? 1 : -1));
   return (
     <div className="App">
-      <h1 className="glitch">HackerNews</h1>
+      <div className="ie11">
+        Your browser is not compatible. <br />
+        Upgrade to a faster and more modern browser. <br />
+        <a
+          href="https://death-to-ie11.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          More Info.
+        </a>{" "}
+      </div>
+      <h1>HackerNews</h1>
       <h2>Top Stories</h2>
       <ul className="posts">
         {status !== "success"
@@ -22,16 +33,7 @@ export default function App() {
                   </a>
                 )}
                 <div>{post?.score}</div>
-                {post?.kids && (
-                  <details className="comments">
-                    <summary>Comments</summary>
-                    <ul>
-                      {post.kids.map((kid) => (
-                        <Comment comment={kid} />
-                      ))}
-                    </ul>
-                  </details>
-                )}
+                {post?.kids && <Comments comments={post.kids} />}
               </li>
             ))
           : "No Posts loaded"}

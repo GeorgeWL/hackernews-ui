@@ -58,3 +58,26 @@ h1,h2,h3,h4{
 summary{
   cursor: pointer;
 }
+.ie11{
+  display: none;
+  visibility: hidden;
+  height: 100%;
+  width: 100%;
+  pointer-events: none;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  background: black;
+  color: yellow;
+  font-size: 5vw;
+  font-family: 'Comic Sans', Courier, monospace;
+  @media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: none) {  
+    /* IE10+ specific styles go here */  
+    display: block;
+    pointer-events: all;
+    visibility: visible
+  }
+  
+}
