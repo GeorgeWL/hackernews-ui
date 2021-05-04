@@ -3,6 +3,7 @@
   font-size: 16px;
   font-family: 'Oswald', sans-serif;
 }
+
 .App {
   text-align: center;
   min-height: 100vh;
@@ -15,6 +16,7 @@
   padding: 1em;
   color: #444444;
 }
+
 h1,h2,h3,h4{
   width: 100%;
 }
@@ -22,14 +24,16 @@ h1,h2,h3,h4{
 .posts{
   width: 100%;
   list-style: none;
+  padding-left: 0;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
-  gap: 2em 1em;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-column-gap: 10px;
+  grid-row-gap: 20px;
   text-align: left;
-  @media (max-width:768px) {
-    grid-template-columns: 95%;
-    grid-template-rows: 1fr;
+  
+  @media (max-width:1024px) {
+    grid-template-columns: 100%;
   }
 }
 .post{

@@ -1,11 +1,20 @@
-// move hooks to here
-
-import { useState } from 'react';
+import { useEffect, useState } from "react";
+const BASE_API_URL = "https://hacker-news.firebaseio.com/v0";
 
 export default function useFetchItems(section) {
   const [data, setData] = useState([]);
-  const [status, setStatus] = useState('loading');
-  return [data, setData];
+  const [status, setStatus] = useState("loading");
+  useEffect(() => {
+    const fetchData = async () => {
+      setStatus("success");
+      const data = await getItemsFromSection(section);
+      setData(data);
+    };
+    if (status !== "success") {
+      fetchData();
+    }
+  }, [data, status, section]);
+  return [data, status];
 }
 
 async function getItemsFromSection(section) {
