@@ -1,10 +1,11 @@
 export default function Comment({ comment }) {
   return (
-    <li key={`comment-${comment.id}`} id={`comment-${comment.id}`}>
-      <a href={`#comment-${comment.id}`}>
-        {comment.by} @ {new Date(comment.date).toLocaleString()}
-      </a>
-      <p>{comment?.text}</p>
+    <li id={`comment-${comment.id}`}>
+      <p>
+        <a href={`#comment-${comment.id}`}>#{comment.id}</a>
+        &nbsp; {comment.by} - {new Date(comment.time).toLocaleString()}
+      </p>
+      <div dangerouslySetInnerHTML={{ __html: comment?.text }} />
     </li>
   );
 }

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getItemsFromSection } from "./getItems";
-export default function useFetchItems(section) {
+export default function useFetchItemsFromSection(section) {
   const [data, setData] = useState([]);
   const [status, setStatus] = useState("loading");
   useEffect(() => {
