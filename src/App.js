@@ -18,16 +18,21 @@ async function getPostById(postID) {
 }
 export default function App() {
   const [posts, setPosts] = useState([]);
-  const [status, setStatus] = useState('loading');
-  setTimeout(async () => {
-    setStatus('success');
-  }, 4000);
+  const [status, setStatus] = useState("loading");
+  useEffect(() => {
+    const fetchData = async () => {
+      setStatus("success");
+      const data = await getPosts();
+      setPosts(data);
+    };
+    fetchData();
+  }, []);
   return (
     <div className="App">
       <h1>HackerNews</h1>
       <h2>Top 10 Current Posts</h2>
       <ul className="posts">
-        {status=='success'
+        {status !== "success"
           ? status
           : posts?.length > 0
           ? posts.map((post) => <li key={`post-${post.id}`}>{post}</li>)
