@@ -1,5 +1,5 @@
 import "./styles.scss";
-import useFetchItems from "./hooks/useFetch";
+import useFetchItems from "./functional/useFetch";
 import Comments from "./components/comments";
 
 export default function App() {
