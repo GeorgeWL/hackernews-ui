@@ -1,29 +1,30 @@
-import "./styles.scss";
-import { useEffect, useState } from "react";
-const BASE_API_URL = "https://hacker-news.firebaseio.com/v0";
-async function getPosts() {
-  const url = BASE_API_URL + "/topstories.json";
+import './styles.scss';
+import { useEffect, useState } from 'react';
+import Comment from './components/comment';
+const BASE_API_URL = 'https://hacker-news.firebaseio.com/v0';
+async function getItemsFromSection(section) {
+  const url = `${BASE_API_URL}/${section}.json`;
   const topStoryIDs = (await (await fetch(url)).json()).slice(0, 10);
   const topStoriesWithDetailsPromises = topStoryIDs.map((storyID) =>
-    getPostById(storyID)
+    getItemById(storyID)
   );
   return Promise.all(topStoriesWithDetailsPromises);
 }
-async function getPostById(postID) {
+async function getItemById(postID) {
   const url = `${BASE_API_URL}/item/${postID}.json`;
   const data = await (await fetch(url)).json();
   return data;
 }
 export default function App() {
   const [posts, setPosts] = useState([]);
-  const [status, setStatus] = useState("loading");
+  const [status, setStatus] = useState('loading');
   useEffect(() => {
     const fetchData = async () => {
-      setStatus("success");
-      const data = await getPosts();
+      setStatus('success');
+      const data = await getItemsFromSection('topstories');
       setPosts(data);
     };
-    if (status !== "success") {
+    if (status !== 'success') {
       fetchData();
     }
   }, [posts, status]);
@@ -32,7 +33,7 @@ export default function App() {
       <h1 className="glitch">HackerNews</h1>
       <h2>Top Stories</h2>
       <ul className="posts">
-        {status !== "success"
+        {status !== 'success'
           ? status
           : posts?.length > 0
           ? posts
@@ -55,14 +56,14 @@ export default function App() {
                       <summary>Comments</summary>
                       <ul>
                         {post.kids.map((kid) => (
-                          <li>{kid}</li>
+                          <Comment comment={kid} />
                         ))}
                       </ul>
                     </details>
                   )}
                 </li>
               ))
-          : "No Posts loaded"}
+          : 'No Posts loaded'}
       </ul>
     </div>
   );
