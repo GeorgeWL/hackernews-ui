@@ -1,6 +1,7 @@
-import "./styles.scss";
+import { Loader } from "./components/loader";
+import Post from "./components/post";
 import useFetchItems from "./functional/useFetch";
-import Comments from "./components/comments";
+import "./styles.scss";
 
 export default function App() {
   const [data, status] = useFetchItems("topstories");
@@ -22,20 +23,9 @@ export default function App() {
       <h2>Top Stories</h2>
       <ul className="posts">
         {status !== "success"
-          ? status
+          ? status === "loading" && <Loader />
           : posts?.length > 0
-          ? posts.map((post) => (
-              <li className="post" key={`post-${post.id}`}>
-                <h3>{post.title.trim()}</h3>
-                {post?.url && (
-                  <a href={post.url} target="_blank" rel="noopener noreferrer">
-                    {post.url}
-                  </a>
-                )}
-                <div>{post?.score}</div>
-                {post?.kids && <Comments comments={post.kids} />}
-              </li>
-            ))
+          ? posts.map((post) => <Post post={post} key={post.id} />)
           : "No Posts loaded"}
       </ul>
     </div>
