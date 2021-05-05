@@ -1,7 +1,8 @@
 import { Loader } from "./components/loader";
 import Post from "./components/post";
 import useFetchItems from "./functional/useFetch";
-import "./styles.scss";
+import "./styles.css";
+import "./normalize.css";
 
 export default function App() {
   const [data, status] = useFetchItems("topstories");
@@ -17,7 +18,7 @@ export default function App() {
           rel="noopener noreferrer"
         >
           More Info.
-        </a>{" "}
+        </a>
       </div>
       <h1>HackerNews</h1>
       <h2>Top Stories</h2>

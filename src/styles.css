@@ -1,7 +1,6 @@
-@import 'normalize';
-:root{
+:root {
   font-size: 16px;
-  font-family: 'Oswald', sans-serif;
+  font-family: "Oswald", sans-serif;
 }
 
 .App {
@@ -17,11 +16,14 @@
   color: #444444;
 }
 
-h1,h2,h3,h4{
+h1,
+h2,
+h3,
+h4 {
   width: 100%;
 }
 
-.posts{
+.posts {
   width: 100%;
   list-style: none;
   padding-left: 0;
@@ -31,38 +33,40 @@ h1,h2,h3,h4{
   grid-column-gap: 10px;
   grid-row-gap: 20px;
   text-align: left;
-  
-  @media (max-width:1024px) {
+
+  @media (max-width: 1024px) {
     grid-template-columns: 100%;
   }
 }
-.post{
+.post {
   width: calc(100% - 20px);
   height: 100%;
   display: flex;
   flex-direction: column;
   border-radius: 5px;
   background: #ffffff;
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 4px 6px -1px,
+    rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
   padding: 5px 10px;
 }
-.post a{
+.post a {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.comments ul{
+.comments ul {
   max-height: 33vh;
   overflow-y: auto;
 }
 
-.comments,.comments summary{
+.comments,
+.comments summary {
   margin: 5px 0;
 }
-summary{
+summary {
   cursor: pointer;
 }
-.ie11{
+.ie11 {
   display: none;
   visibility: hidden;
   height: 100%;
@@ -76,16 +80,17 @@ summary{
   background: black;
   color: yellow;
   font-size: 5vw;
-  font-family: 'Comic Sans', Courier, monospace;
-  @media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: none) {  
-    /* IE10+ specific styles go here */  
+  font-family: "Comic Sans", Courier, monospace;
+}
+@media screen and (-ms-high-contrast: active),
+  screen and (-ms-high-contrast: none) {
+  /* IE10-11 specific styles go here */
+  .ie11 {
     display: block;
     pointer-events: all;
-    visibility: visible
+    visibility: visible;
   }
-  
 }
-
 .lds-facebook {
   display: inline-block;
   position: relative;
@@ -117,7 +122,8 @@ summary{
     top: 8px;
     height: 64px;
   }
-  50%, 100% {
+  50%,
+  100% {
     top: 24px;
     height: 32px;
   }
